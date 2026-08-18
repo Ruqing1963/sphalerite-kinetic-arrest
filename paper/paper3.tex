@@ -1,0 +1,1448 @@
+%==============================================================================
+%  Paper 3
+%  Kinetic Arrest, Not Equilibrium:
+%  Why Indium Nanoinclusions Survive in Sphalerite
+%
+%  He Yu, Ruqing Chen, Huanzhang Lu
+%  Target journal: Geochimica et Cosmochimica Acta
+%
+%  Compile: pdflatex paper3.tex  (twice, for cross-references)
+%  STATUS: Sections 2 and 3 complete. Other sections are stubs.
+%==============================================================================
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{authblk}
+\usepackage{caption}
+\usepackage[round,authoryear]{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{url}
+
+\graphicspath{{../figures/}{figures/}{./}}
+\captionsetup{font=small,labelfont=bf}
+\setlength{\parskip}{2pt}
+
+\newcommand{\dQ}{\Delta Q}
+\newcommand{\JCuIn}{J_{\mathrm{Cu\text{-}In}}}
+\newcommand{\Jlike}{J_{\mathrm{like}}}
+\newcommand{\Tf}{T_{\mathrm{f}}}
+
+\title{\bfseries Kinetic Arrest, Not Equilibrium:\\
+Why Indium Nanoinclusions Survive in Sphalerite}
+
+\author[1]{He Yu}
+\author[2]{Ruqing Chen\thanks{Corresponding author.}}
+\author[3]{Huanzhang Lu}
+\affil[1]{Geological Laboratory, Hezhou University, Hezhou, Guangxi 542899, China}
+\affil[2]{GUT Geoservice Inc., Montreal, Quebec, Canada}
+\affil[3]{D\'epartement des sciences appliqu\'ees et Centre d'\'etudes sur les
+ressources min\'erales, Universit\'e du Qu\'ebec \`a Chicoutimi, Quebec, Canada}
+\date{}
+
+\begin{document}
+\maketitle
+
+\noindent\small
+\textit{E-mail addresses:} \texttt{yuhe@hzxy.edu.cn} (H. Yu),
+\texttt{ruqing@hotmail.com} (R. Chen), \texttt{hzlu@uqac.uquebec.ca} (H. Lu).
+\normalsize
+
+\begin{abstract}
+\noindent
+The equilibrium state of indium in sphalerite is a single condensed domain: the
+preceding paper of this series established this across every composition from
+0.10 to 2.00~at.\%, and we show here that dividing one domain into two costs
+between 300 and 1800~$k_BT$, from an interfacial energy obtained in closed form,
+$\gamma = \lambda/3 - J_{\rm Cu\text{-}In}/3 - J_{\rm like}/6$, in which the bulk
+terms cancel identically. Natural sphalerite nonetheless carries populations of
+discrete nanometric and micrometric inclusions. The observed configurations lie
+hundreds of $k_BT$ above the state the free energy selects.
+
+We argue that this is kinetic arrest rather than a failure of the
+thermodynamics, and that the argument converts a spatial question --- how large
+are the inclusions --- into a temporal one. Coarsening is limited by solute
+transport, which is thermally activated, so its timescale grows exponentially as
+temperature falls; the cooling timescale falls only as $T^2$. The two must
+cross, and cross once. Below the crossing the microstructure ceases to evolve
+and what survives is the configuration the system occupied when transport
+stopped.
+
+The arrest condition is strongly buffered: every quantity entering it, including
+the diffusion prefactor this work cannot determine, appears inside a logarithm,
+so an order-of-magnitude error shifts the arrest temperature by less than a
+quarter. The frozen domain size consequently follows a power law in cooling
+rate, $R_{\rm f} \propto |\dot{T}|^{-n}$, whose exponent rather than whose
+prefactor carries the physics.
+
+Two calculations support this, with roles that are not interchangeable. The bulk
+free energy is measured by thermodynamic integration rather than assumed,
+because a regular-solution form has no driving force in this system at all --- the
+heterovalent and homovalent contributions cancel identically under random
+mixing --- and the gradient energy coefficient is then fixed by $\gamma$. A
+phase-field calculation on that footing reproduces the sequence from
+homogeneous solution through spinodal decomposition to coarsening and arrest,
+and gives $n = 0.259$; it cannot give an absolute length, because the interface
+must be numerically widened for any solver to resolve it. Direct lattice
+coarsening, with the interface at its physical width of one bond, gives domains
+of one to two nanometres and $n = 0.150$.
+
+Set against deposit classes whose cooling rates span eight orders of magnitude,
+from quenched seafloor systems to basinal brines, the model reproduces the
+observed ordering of inclusion size but implies an exponent near $0.45$, larger
+than either simulation. We report the disagreement rather than the agreement.
+It may reflect a crossover from interface-limited coarsening at the atomic scale
+towards diffusion-limited coarsening as domains grow, in which case no single
+exponent describes the whole range. Until it is resolved the inversion supports
+ranking deposits by cooling rate, not calibrating one.
+
+Two consequences follow regardless. A smooth LA-ICP-MS depth profile is
+evidence of rapid cooling rather than of solid solution, since the indium is
+aggregated but below the resolution of the ablation volume. And indium
+deportment, and hence its metallurgical recovery, should differ systematically
+between deposit classes along an axis predictable from thermal history.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+\subsection{A result and a contradiction}
+
+The preceding paper of this series established, by replica-exchange sampling of
+a configurational Hamiltonian whose charge-compensation coefficient is fixed by
+the dielectric constant of ZnS rather than fitted, that the equilibrium state of
+indium in sphalerite is condensed \citep{yu2026b}. Across every composition
+examined, from 0.10 to 2.00~at.\%, the solute population gathered into a
+\emph{single} domain: the monomer fraction was zero throughout, against a
+random-solution expectation of 98\% at the most dilute point, and the result was
+established by bracketing rather than by convergence, so it does not rest on
+equilibrating a sampler that cannot be equilibrated at ore-forming temperatures.
+
+Section~\ref{sec:gamma} of the present paper quantifies why the state is
+singular rather than merely condensed. The interfacial energy has a closed form,
+$\gamma = \lambda/3 - \JCuIn/3 - \Jlike/6$, in which the bulk terms cancel
+identically; dividing one domain into two costs between 300 and 1800~$k_BT$ over
+the size range examined. Bulk configurational thermodynamics opposes a
+population of separate domains by an enormous margin.
+
+Natural sphalerite frequently contains one. High-resolution microscopy resolves
+indium-bearing heterogeneity at the scale of tens of nanometres in samples whose
+LA-ICP-MS depth profiles are perfectly smooth \citep{cook2009,frenzel2016}, and
+roquesite is reported as discrete micrometric grains exsolved from sphalerite
+\citep{moura2007}. Neither texture is a single domain. The contradiction is
+sharp, and it is quantitative rather than a matter of interpretation: the
+observed configurations lie hundreds of $k_BT$ above the state the free energy
+selects.
+
+\subsection{The contradiction is only apparent}
+
+Nothing in the preceding result asserts that a sphalerite grain \emph{attains}
+its equilibrium configuration. Equilibrium thermodynamics identifies the state a
+system would reach given unlimited time; it says nothing about whether the time
+was available. An ore body cools, and as it cools the solute transport that
+would carry the microstructure towards equilibrium slows exponentially, while
+the cooling itself proceeds at a rate set by the geology. Below some
+temperature the second outruns the first and the microstructure stops evolving.
+What survives to be observed is not the equilibrium state but the state the
+system happened to occupy when transport ceased.
+
+This is kinetic arrest, and the proposal of this paper is that it accounts for
+the discrepancy in full. The multi-domain textures of natural sphalerite are
+neither an alternative equilibrium nor evidence against the thermodynamics of
+\citet{yu2026b}; they are that thermodynamics interrupted.
+
+The proposal has a testable consequence, and it is the reason the argument is
+worth making rather than merely asserting. If inclusions are frozen coarsening
+products, their size records how long coarsening had before it stopped, and
+therefore how fast the rock cooled. The spatial question --- how large are the
+inclusions --- becomes a temporal one.
+
+\subsection{What is required to make the argument}
+
+The transformation from a spatial question to a temporal one requires three
+things, and this paper supplies them in order.
+
+First, the thermodynamics of the lattice model must be carried into a continuum
+description in which coarsening can be followed. Section~\ref{sec:bridge} does
+this without adjustable parameters: the bulk free energy is measured by
+thermodynamic integration rather than assumed, because a regular-solution form
+has \emph{no} driving force in this system --- the heterovalent and homovalent
+contributions cancel identically under random mixing --- and the gradient energy
+coefficient is fixed by the interfacial energy, which Section~\ref{sec:gamma}
+obtains in closed form and verifies against explicit construction.
+
+Second, the competition between coarsening and cooling must be made explicit.
+Section~\ref{sec:timescales} shows that the coarsening time grows exponentially
+as temperature falls while the cooling time falls only as $T^2$, so the two must
+cross, once; that the crossing temperature is buffered logarithmically against
+every quantity entering it, including the diffusion prefactor this work cannot
+determine; and that the frozen domain size consequently follows a power law in
+cooling rate.
+
+Third, the prediction must be confronted with observation.
+Section~\ref{sec:geospeedometer} sets the power law against deposit classes
+whose cooling rates differ by eight orders of magnitude and whose inclusion
+textures differ by four. The ordering is reproduced. The magnitude is not, and
+we report the disagreement and its possible origins rather than the agreement.
+
+\subsection{Two methods, and what each is for}
+
+Two calculations are used and their roles are not interchangeable, a division
+set out fully in Section~\ref{sec:kappacaveat} and stated here because it
+governs how every subsequent figure should be read.
+
+A phase-field calculation supplies the pathway and the topology: which
+morphologies the system passes through, whether coarsening completes or
+arrests, and how the outcome depends on the ratio of cooling rate to mobility.
+It cannot supply an absolute length, because the Cahn--Hilliard interface must
+be numerically widened for any solver to resolve it, so the domain sizes in
+those figures are set by the grid rather than predicted.
+
+A direct lattice coarsening simulation supplies the absolute scale, with the
+interface at its physical width of one bond and no inflation anywhere. It
+reaches far less time and far fewer domains, but its nanometres are nanometres.
+
+Where both can compute a quantity --- the coarsening exponent --- they are
+compared, and Section~\ref{sec:crosscheck} reports that they disagree by 70\%.
+That disagreement, and what it does and does not undermine, is treated there
+rather than deferred.
+
+%==============================================================================
+\section{From lattice to continuum}
+\label{sec:bridge}
+
+The Cahn--Hilliard equation \citep{cahn1958} for a conserved order parameter
+$c(\mathbf{r}, t)$,
+here the total solute fraction $x_{\rm Cu} + x_{\rm In}$ on the cation
+sublattice, is
+\begin{equation}
+\frac{\partial c}{\partial t}
+  = \nabla \cdot \left[ M(T)\, \nabla \frac{\delta F}{\delta c} \right],
+\qquad
+F[c] = \int \left[ f(c) + \tfrac{1}{2}\kappa \left|\nabla c\right|^2 \right] \mathrm{d}V .
+\label{eq:ch}
+\end{equation}
+Three quantities must be supplied: the bulk free energy density $f(c)$, the
+gradient energy coefficient $\kappa$, and the mobility $M(T)$. This section
+obtains the first two from the lattice model without adjustable parameters, and
+sets out what is and is not known about the third.
+
+\subsection{Why $f(c)$ cannot be assumed}
+\label{sec:whynotregular}
+
+The usual practice is to postulate a regular-solution or double-well $f(c)$ and
+fit its coefficients. That is not available here, and the obstruction is
+specific to this Hamiltonian rather than a matter of accuracy.
+
+Under random mixing at $x_{\rm Cu} = x_{\rm In} = c/2$, the configurational part
+of the charge-compensation energy averages to
+\begin{equation}
+\Big\langle \sum_{\langle ij \rangle} \delta q_i \delta q_j \Big\rangle_{\rm rand}
+= \frac{Nz}{2}\left[ 2\left(\frac{c}{2}\right)^2(-1)
+                   + \left(\frac{c}{2}\right)^2(+1)
+                   + \left(\frac{c}{2}\right)^2(+1) \right] = 0,
+\label{eq:mfzero}
+\end{equation}
+because the heterovalent Cu--In contacts, carrying $\delta q_i \delta q_j = -1$,
+exactly cancel the homovalent Cu--Cu and In--In contacts, carrying $+1$. A
+mean-field free energy built on random mixing therefore has \emph{no driving
+force whatever}, at any composition. The entire thermodynamics of this system
+resides in the correlations that mean-field theory discards, which is the same
+statement, in the language of free energy, as the observation in
+\citet{yu2026b} that the equilibrium state is condensed while the random solid
+solution is not.
+
+The consequence is that a regular-solution $f(c)$ would not be an approximation
+to this system; it would describe a different one. $f(c)$ must be measured.
+
+\subsection{Measuring $f(c)$ by thermodynamic integration}
+\label{sec:fofc}
+
+We obtain $f(c)$ by integrating over the coupling strength. Introducing a
+scaling parameter $a \in [0,1]$ and writing $H(a) = aH$, the free energy of the
+fully coupled system is
+\begin{equation}
+F(1) = F(0) + \int_0^1 \langle H \rangle_a \, \mathrm{d}a,
+\label{eq:ti}
+\end{equation}
+where $F(0)$ is the ideal-solution free energy, known analytically as
+$-k_BT \sum_\alpha x_\alpha \ln x_\alpha$ per site, and $\langle H \rangle_a$ is
+the expectation of the full Hamiltonian in the ensemble generated by $H(a)$.
+The identity is exact; the only error is the sampling error in
+$\langle H \rangle_a$ and the quadrature error, both of which are controlled.
+
+Scaling the \emph{whole} Hamiltonian rather than one term matters. Integrating
+along a path that scales only $E_c$, say, would give the free energy difference
+along that path, which is a different quantity; the identity of
+Eq.~\eqref{eq:ti} requires that $a$ multiply $H$ in its entirety.
+
+Table~\ref{tab:fofc} gives the result at 573~K, computed in an $L = 12$ box
+($N = 6912$ cation sites) with nine Gauss--Legendre nodes in $a$ and
+block-averaged sampling at each node.
+
+\begin{table}[htbp]
+\centering
+\caption{Bulk free energy per cation site at 573~K, by thermodynamic
+integration. $f_{\rm ideal}$ is the ideal-solution term and the integral column
+is $\int_0^1 \langle H\rangle_a\,\mathrm{d}a$. Uncertainties are propagated from
+the block-averaged sampling error at each quadrature node.}
+\label{tab:fofc}
+\small
+\begin{tabular}{rrrrr}
+\toprule
+$c$ & $f_{\rm ideal}$ (eV) & integral (eV) & $f(c)$ (eV) & $\pm$ \\
+\midrule
+0.005 & $-0.00173$ & $0.00232$ & $+0.00059$ & 0.00002 \\
+0.010 & $-0.00311$ & $0.00399$ & $+0.00089$ & 0.00003 \\
+0.020 & $-0.00553$ & $0.00653$ & $+0.00101$ & 0.00004 \\
+0.040 & $-0.00966$ & $0.01049$ & $+0.00083$ & 0.00024 \\
+0.080 & $-0.01650$ & $0.01436$ & $-0.00214$ & 0.00038 \\
+0.120 & $-0.02222$ & $0.01965$ & $-0.00258$ & 0.00045 \\
+0.160 & $-0.02719$ & $0.02313$ & $-0.00405$ & 0.00041 \\
+0.200 & $-0.03155$ & $0.02642$ & $-0.00513$ & 0.00052 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The instability, and how to diagnose it robustly}
+\label{sec:spinodal}
+
+The Cahn--Hilliard instability requires $f''(c) < 0$. Extracting a second
+derivative from eight measured points is, however, an ill-conditioned operation,
+and we report it with the corresponding caution.
+
+Fitting a polynomial and differentiating twice gives answers that depend on the
+degree chosen: at $c = 0.20$ the third-, fourth- and fifth-degree fits return
+$f'' = +0.62$, $-2.90$ and $+7.23$~eV respectively. Those are not three
+estimates of one number; they are the oscillation of an under-determined fit.
+Finite differences on the raw points are better behaved but still change sign
+between adjacent intervals in the concentrated range.
+
+The physically meaningful test is not local curvature but the common-tangent
+construction, which asks whether a homogeneous state at composition $c$ has
+higher free energy than a mixture of two other compositions, and which requires
+no differentiation at all. Taking the chord between the end members of the
+measured range, the excess $f(c) - f_{\rm chord}(c)$ is
+\begin{center}
+\small
+\begin{tabular}{rrrrrrrr}
+\toprule
+$c$ & 0.005 & 0.010 & 0.020 & 0.040 & 0.080 & 0.120 & 0.160 \\
+\midrule
+$f - f_{\rm chord}$ ($10^{-5}$ eV) & $0$ & $+44$ & $+86$ & $+126$ & $-53$ & $+21$ & $-9$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+The dilute compositions from 0.010 to 0.040 lie above the chord by three to
+five times their sampling uncertainty and are therefore unstable to phase
+separation. The concentrated compositions lie on or below it to within
+uncertainty.
+
+Two points follow. First, the instability is located in the dilute range,
+which is where \citet{yu2026b} found complete condensation and where natural
+sphalerite sits: the free-energy measurement and the direct simulation agree,
+by independent routes. Second, resolving the phase boundary itself would require
+finer composition spacing and smaller error bars than the present sampling
+provides; we use $f(c)$ as the driving force in Eq.~\eqref{eq:ch} and do not
+claim to have located the binodal.
+
+The distinction between the two kinds of instability matters for what follows.
+A composition lying above the common tangent but at positive curvature is
+metastable: it separates only by nucleation, over a barrier. One at negative
+curvature is unstable outright and separates spontaneously, at every wavelength
+longer than a critical value --- spinodal decomposition. The simulations of
+Section~\ref{sec:pf} are conducted in the latter regime, so that the pathway is
+displayed without the additional and separately uncertain physics of nucleation
+rates. Whether natural sphalerite decomposes spinodally or by nucleation depends
+on where its composition sits relative to a boundary this work does not resolve;
+the arrest physics that the paper concerns is the same either way, because it
+turns on transport ceasing rather than on how decomposition began.
+
+\subsection{The gradient coefficient is fixed by the interfacial energy}
+\label{sec:kappa}
+
+For a planar interface at equilibrium, the Cahn--Hilliard functional gives the
+interfacial energy as
+\begin{equation}
+\gamma = \int_{c_\alpha}^{c_\beta} \sqrt{2\kappa\, \Delta f(c)}\ \mathrm{d}c,
+\qquad
+\Delta f(c) = f(c) - f_{\rm tangent}(c),
+\label{eq:gammakappa}
+\end{equation}
+where $f_{\rm tangent}$ is the common tangent between the coexisting
+compositions $c_\alpha$ and $c_\beta$. Since $\gamma$ is known in closed form
+from the lattice model (Section~\ref{sec:gamma}) and $f(c)$ is now measured,
+Eq.~\eqref{eq:gammakappa} determines $\kappa$. It is not a fitting parameter.
+
+\subsection{What this bridge cannot deliver: the absolute length scale}
+\label{sec:kappacaveat}
+
+This subsection states a limitation that governs how the phase-field results of
+Section~\ref{sec:pf} should be read, and we state it before presenting any of
+them.
+
+The characteristic length of the Cahn--Hilliard equation is
+$\ell = \sqrt{\kappa / |f''|}$, and it sets the interface width. With $\kappa$
+fixed by Eq.~\eqref{eq:gammakappa} from a $\gamma$ that is an atomic-scale
+quantity --- the lattice model's interface is one bond wide --- the physical
+$\ell$ is of order the lattice parameter. No finite-difference or spectral
+solver can represent an interface that thin: numerical stability requires the
+interface to span four to six grid points, so any practical calculation must
+either use a grid spacing far below the lattice parameter, which is
+meaningless, or inflate $\kappa$ so that the interface spreads across the
+available grid.
+
+Every phase-field calculation reported here takes the second course, as every
+phase-field calculation of an atomically sharp interface must. The consequence
+is unavoidable and must not be obscured: \emph{the domain sizes appearing in the
+phase-field simulations are set by the grid spacing, not predicted by the
+physics}. A reader who asks why the simulated inclusions are nanometric would be
+answered, truthfully, that the grid was chosen that way.
+
+We therefore divide the labour between the two methods explicitly.
+
+\begin{itemize}\itemsep2pt
+\item \textbf{The phase-field model supplies the pathway and the topology}: the
+sequence of morphologies through which the system passes, whether coarsening
+completes or arrests, and how that outcome depends on the ratio of cooling rate
+to mobility. These are dimensionless statements and are unaffected by the
+inflation of $\kappa$, because inflating $\kappa$ rescales lengths and times
+together.
+\item \textbf{The lattice model supplies the absolute scale}: domain sizes in
+atoms and in nanometres, obtained by direct coarsening simulation
+(Section~\ref{sec:latticecoarsen}) in which the interface is what it physically
+is and no inflation occurs.
+\end{itemize}
+
+The two are cross-checked in Section~\ref{sec:crosscheck} on the quantity they
+can both compute, namely the coarsening exponent.
+
+\subsection{Mobility}
+\label{sec:mobility}
+
+The mobility is the one input this work cannot obtain from the lattice model,
+because Monte Carlo sweeps are not physical time. We therefore build the
+framework in terms of a dimensionless mobility and state separately what is
+required to give it absolute units.
+
+Solute transport in a substitutional sublattice is thermally activated, so
+\begin{equation}
+M(T) = \frac{D(T)\, \Omega}{k_B T}, \qquad
+D(T) = D_0 \exp\!\left(-\frac{E_a}{k_B T}\right),
+\label{eq:arrhenius}
+\end{equation}
+with $\Omega$ the volume per cation site. The activation energy $E_a$ has a
+lower bound from the model itself: moving a solute out of a domain requires
+breaking its heterovalent bonds, each costing $2\lambda \approx 0.6$~eV, so
+$E_a \gtrsim 2\lambda$ for a surface solute and several times that for an
+interior one. This is a bound, not a determination: the true $E_a$ also contains
+the migration barrier of the underlying diffusion mechanism, whether vacancy- or
+interstitial-mediated, which the configurational model does not represent.
+
+Two regimes of conclusion follow, and we label them throughout.
+
+\emph{Conclusions requiring only the Arrhenius form.} The competition between
+coarsening and cooling developed in Section~\ref{sec:timescales}, the existence
+of an arrest temperature, and the scaling of final domain size with cooling rate
+all follow from the \emph{form} of Eq.~\eqref{eq:arrhenius} together with
+$E_a > 0$. They are expressed in reduced variables and require no absolute
+value of $D_0$.
+
+\emph{Conclusions requiring $D_0$ and $E_a$.} Placing the arrest temperature on
+an absolute scale, and converting an observed domain-size distribution into a
+cooling rate in kelvin per year, both require measured diffusion data for Cu or
+In in sphalerite. Where such values are available they are used and identified
+as such; where they are not, results are reported as relative calibrations, in
+which a domain size ratio maps onto a cooling rate ratio without either being
+absolute. We regard the relative calibration as the safer claim and the one the
+present work establishes.
+
+%==============================================================================
+\section{Interfacial energy and the splitting barrier}
+\label{sec:gamma}
+
+The interfacial energy between a solute domain and the ZnS matrix is required
+twice over: to fix $\kappa$ through Eq.~\eqref{eq:gammakappa}, and to set the
+thermodynamic penalty for the multi-domain configurations whose survival this
+paper explains. It can be obtained in closed form.
+
+\subsection{Closed form}
+\label{sec:gammaclosed}
+
+Consider a domain of $n$ solutes, half Cu and half In, and let $A$ be the number
+of solute--Zn first-neighbour bonds, which is the interface measured in the
+natural units of the lattice. The solutes present $12n$ bond ends, of which $A$
+reach the matrix, so the solute--solute bond count is $N_{ss} = (12n - A)/2$. In
+an ideal two-Cu-two-In ordering each cation has eight opposite and four like
+neighbours, so two thirds of the solute-directed ends are heterovalent:
+\begin{equation}
+N_{\rm CuIn} = \tfrac{1}{3}(12n - A) = 4n - \tfrac{A}{3},
+\qquad
+N_{\rm like} = 2n - \tfrac{A}{6}.
+\label{eq:bondcounts}
+\end{equation}
+Substituting into the exact pair form of the charge-compensation energy
+\citep{yu2026},
+\begin{equation}
+E_c = 4\lambda \sum_i \delta q_i^{\,2}
+    + 2\lambda \sum_{\langle ij \rangle} \delta q_i \delta q_j
+    = 16\lambda n - \lambda A - 4\lambda\left(4n - \frac{A}{3}\right)
+    = \frac{\lambda}{3} A .
+\label{eq:Ecgamma}
+\end{equation}
+The bulk terms cancel identically, leaving an energy strictly proportional to
+the interface area. Adding the chemical term gives
+\begin{equation}
+\boxed{\;
+\gamma = \frac{\lambda}{3} - \frac{\JCuIn}{3} - \frac{\Jlike}{6}
+\;}
+\label{eq:gamma}
+\end{equation}
+per solute--Zn bond, with the corresponding bulk coefficient
+\begin{equation}
+e_{\rm bulk} = 4\JCuIn + 2\Jlike
+             + \tfrac{1}{2}\left(E_s^{\rm Cu} + E_s^{\rm In}\right)
+\label{eq:ebulk}
+\end{equation}
+per solute. The Eshelby term is the \emph{mean} over the two species, not the
+value for indium alone, because $e_{\rm bulk}$ is expressed per solute atom and
+a stoichiometric domain contains equal numbers of each. Copper contributes
+nothing to it: $r_{\mathrm{Cu^+}} = r_{\mathrm{Zn^{2+}}} = 0.60$~\AA{} in
+fourfold coordination, so its misfit vanishes identically, and
+$E_s^{\rm Cu} = 0$ while $E_s^{\rm In} = 0.033$~eV. At the parameters of
+\citet{yu2026}, $\gamma = 0.125$~eV per bond and $e_{\rm bulk} = -0.2835$~eV per
+solute.
+
+Two features of Eq.~\eqref{eq:gamma} deserve emphasis. It contains no fitted
+quantity: $\lambda$ is fixed by the dielectric constant of ZnS, and the $J$
+terms enter explicitly, so the expression updates immediately for any future
+first-principles determination without repeating a simulation. And the
+cancellation in Eq.~\eqref{eq:Ecgamma} is exact rather than asymptotic, so the
+result holds for domains of any size, not only large ones.
+
+\subsection{Verification by explicit construction}
+\label{sec:gammaverify}
+
+Domains of seven sizes from 64 to 3072 solutes were built explicitly in an
+$L = 24$ box ($N = 55{,}296$ cation sites) and evaluated exactly, then relaxed
+by solute--solute exchange alone at 20~K. Restricting the move set in that way
+lets the interface reconstruct chemically while holding the domain outline, and
+therefore $A$, exactly fixed; it separates the interfacial term from the
+dissolution physics.
+
+\begin{table}[htbp]
+\centering
+\caption{Interfacial and bulk coefficients from the closed form and from
+explicit construction, $L = 24$, seven domain sizes from 64 to 3072 solutes.}
+\label{tab:gamma}
+\small
+\begin{tabular}{lrr}
+\toprule
+& $e_{\rm bulk}$ (eV per solute) & $\gamma$ (eV per bond) \\
+\midrule
+closed form, Eq.~\eqref{eq:gamma} & $-0.2835$ & $0.1250$ \\
+as constructed & $-0.2394$ & $0.1557$ \\
+after relaxation & $-0.2802$ & $0.1281$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The relaxed construction agrees with the closed form to 1.2\% in $e_{\rm bulk}$
+and 2.5\% in $\gamma$, and the agreement deserves more than a note of numerical
+consistency. Eq.~\eqref{eq:gamma} is a continuum statement: it asserts that the
+excess energy of a two-phase configuration is strictly proportional to interface
+\emph{area}, with a coefficient independent of size or shape. That the same
+coefficient reproduces domains of 64 solutes --- objects perhaps a nanometre
+across, in which a majority of atoms lie at the surface --- shows that the area
+scaling on which the whole continuum treatment rests does not fail at the
+nanoscale for this system. The reason is visible in Eq.~\eqref{eq:Ecgamma}: the
+cancellation of the bulk terms is exact rather than asymptotic, so no
+large-domain limit is being invoked. This is what licenses the use of a
+Cahn--Hilliard functional to describe inclusions of the size that natural
+sphalerite actually contains. The as-constructed value is higher because the layered
+ordering rule cannot be satisfied exactly at a surface: the constructed domains
+fall 1.5 to 5.4\% short of the ideal heterovalent bond count, a shortfall that
+diminishes with size as the surface fraction falls, and relaxation recovers most
+of it. Residuals of the two-term fit are 5.1~eV RMS over an energy range of
+450~eV; adding an $n^{1/3}$ edge term reduces this only to 4.92~eV, so the
+two-term description is adequate over this range.
+
+\subsection{The cost of splitting a domain}
+\label{sec:splitting}
+
+The energy required to divide one domain into two halves is
+$\Delta E = \gamma\left[2A(n/2) - A(n)\right]$, evaluated with the relaxed
+$\gamma$ and the measured areas:
+
+\begin{center}
+\small
+\begin{tabular}{rrrrr}
+\toprule
+$n$ & $A(n)$ & $2A(n/2)$ & $\Delta E$ (eV) & $\Delta E / k_BT$ at 573~K \\
+\midrule
+128  & 414  & 528  & 14.6 & 296 \\
+256  & 642  & 828  & 23.8 & 483 \\
+512  & 1040 & 1284 & 31.3 & 633 \\
+1024 & 1640 & 2080 & 56.4 & 1141 \\
+2048 & 2598 & 3280 & 87.4 & 1769 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Every value is positive, as it must be since dividing a domain increases
+interfacial area, and every value is enormous relative to thermal energy. This
+is the quantitative form of the problem the present paper addresses: bulk
+configurational thermodynamics opposes a population of separate domains by
+hundreds of $k_BT$, yet such populations are what natural sphalerite frequently
+shows. The resolution cannot be thermodynamic.
+
+\subsection{Two sampled estimates that should not be used}
+\label{sec:gammafailed}
+
+Two finite-temperature attempts to measure $\gamma$ preceded the closed form and
+both failed. They are recorded because the failure modes are diagnostic of a
+general difficulty, namely that $\gamma$ is a small difference between large
+numbers and sampled configurations carry both energy error and shape noise.
+
+The first relaxed domains isothermally at 573~K, where the acceptance ratio is
+of order $10^{-5}$, and left the $n = 1280$ domain at $-145$~eV against an
+independently known equilibrium bound of $-298$~eV. The second used replica
+exchange and reached $-228$~eV, still 24\% short, and additionally returned a
+three-cluster configuration at $n = 1280$, so the measured area belonged to
+three domains rather than one. Its diagnostic failure was unmistakable: the
+fitted splitting cost at $n = 640$ came out \emph{negative}, which is
+impossible.
+
+The closed form avoids both difficulties by not sampling at all. Its verification
+in Section~\ref{sec:gammaverify} uses construction and zero-temperature
+relaxation, in which the domain outline is imposed rather than inferred.
+
+%==============================================================================
+\section{Two competing timescales}
+\label{sec:timescales}
+
+Sections~\ref{sec:bridge} and \ref{sec:gamma} establish that a two-phase
+configuration carries an interfacial penalty of order hundreds of $k_BT$ per
+domain boundary, so a population of separate domains is strongly disfavoured
+thermodynamically. \citet{yu2026b} shows the equilibrium state to be a single
+condensed domain. Natural sphalerite nonetheless frequently contains many. This
+section sets out why, in a form that requires no simulation.
+
+\subsection{The two rates}
+
+Coarsening proceeds by transport: material must leave the smaller domains and
+arrive at the larger ones, across a matrix in which every step requires breaking
+heterovalent bonds. For diffusion-limited coarsening of domains of radius $R$,
+the Lifshitz--Slyozov--Wagner result \citep{lifshitz1961} gives
+$R^3 - R_0^3 \propto D t$, so the
+time to grow a domain appreciably is
+\begin{equation}
+\tau_{\rm coarsen}(T) \;\sim\; \frac{R^3\, k_B T}{\gamma\, D(T)\, \Omega},
+\qquad
+D(T) = D_0 \exp\!\left(-\frac{E_a}{k_B T}\right),
+\label{eq:taucoarsen}
+\end{equation}
+with $\Omega$ the volume per cation site. The interfacial energy appears in the
+denominator because it is the driving force: a larger $\gamma$ makes coarsening
+faster, not slower.
+
+Cooling supplies the competing rate. What matters is not the absolute
+temperature drop but the time over which the mobility changes appreciably, since
+that is the interval within which the system either coarsens or does not.
+Differentiating the Arrhenius form, the mobility falls by a factor $e$ over a
+temperature interval $k_BT^2/E_a$, so
+\begin{equation}
+\tau_{\rm cool}(T) \;\sim\; \frac{k_B T^2}{E_a\, \lvert \dot{T} \rvert}.
+\label{eq:taucool}
+\end{equation}
+
+The essential asymmetry is now visible. As temperature falls,
+$\tau_{\rm coarsen}$ grows \emph{exponentially}, through the Arrhenius factor,
+while $\tau_{\rm cool}$ falls only as $T^2$. Whatever their ordering at high
+temperature, the two must cross, and they cross once.
+
+\subsection{The arrest temperature}
+
+Setting $\tau_{\rm coarsen}(\Tf) = \tau_{\rm cool}(\Tf)$ and taking logarithms
+gives the arrest condition
+\begin{equation}
+\frac{E_a}{k_B \Tf}
+ = \ln\!\left[ \frac{\gamma\, D_0\, \Omega\, \Tf}
+                    {R^3\, E_a\, \lvert \dot{T} \rvert} \right].
+\label{eq:arrest}
+\end{equation}
+Below $\Tf$ the microstructure is frozen: coarsening would still lower the free
+energy, and by a large margin, but there is no longer time for it. The
+configuration that survives to be observed is the one the system happened to
+have reached when transport ceased.
+
+Equation~\eqref{eq:arrest} is transcendental in $\Tf$, but its structure is more
+informative than its solution. The left-hand side is large --- with
+$E_a \gtrsim 2\lambda \approx 0.6$~eV and $\Tf$ in the ore-forming range,
+$E_a/k_B\Tf$ lies between 9 and 17 --- while the right-hand side is a logarithm.
+A logarithm cannot vary quickly, so $\Tf$ is strongly buffered against
+everything inside it. Differentiating implicitly, with $X = E_a/k_B\Tf$,
+\begin{equation}
+\frac{\mathrm{d}\Tf}{\Tf} = -\frac{\mathrm{d}\ln \lvert\dot{T}\rvert}{X - 1}.
+\label{eq:tfsens}
+\end{equation}
+A tenfold increase in cooling rate raises $\Tf$ by 14\% at 400~K, 21\% at
+573~K and 30\% at 800~K. The arrest temperature is therefore a weak function of
+cooling history, and the same is true of its dependence on $D_0$, $\gamma$ and
+$R$, all of which enter only logarithmically.
+
+This is a useful robustness rather than a limitation. It means that the
+existence of arrest, and its approximate location, do not depend on the
+quantities this work cannot pin down: an uncertainty of an order of magnitude in
+$D_0$ shifts $\Tf$ by less than a quarter.
+
+\subsection{What is frozen in}
+
+The domain size at arrest follows by evaluating how far coarsening has run when
+the two timescales cross. Substituting $\tau_{\rm cool}(\Tf)$ into the
+Lifshitz--Slyozov growth law,
+\begin{equation}
+R_{\rm f}^3 \;\sim\; \frac{\gamma\, D(\Tf)\, \Omega}{k_B \Tf}\,
+                     \tau_{\rm cool}(\Tf)
+             \;\sim\; \frac{\gamma\, D_0\, \Omega}{E_a\, \lvert\dot{T}\rvert}
+                      \, \Tf \exp\!\left(-\frac{E_a}{k_B \Tf}\right).
+\label{eq:Rf}
+\end{equation}
+Because $\Tf$ itself varies only logarithmically with $\lvert\dot{T}\rvert$, the
+explicit factor dominates and
+\begin{equation}
+\boxed{\;R_{\rm f} \;\propto\; \lvert\dot{T}\rvert^{-n}, \qquad n \to 1/3 \;}
+\label{eq:scaling}
+\end{equation}
+in the limit where the drift in $\Tf$ is neglected, with $n$ reduced below
+$1/3$ once it is not, because faster cooling arrests at a higher temperature
+where the mobility is larger and thus partly compensates. The phase-field
+simulations of Section~\ref{sec:pf} return $n = 0.259$, consistent with a
+one-third law softened by exactly that drift.
+
+Equation~\eqref{eq:scaling} is the central predictive statement of this paper.
+It says that the size of the inclusions a sphalerite grain carries is set by how
+fast it cooled, through a power law whose exponent is a property of
+diffusion-limited coarsening rather than of any parameter this work has had to
+assume. Section~\ref{sec:geospeedometer} takes up its inversion.
+
+\section{Phase-field simulation}
+\label{sec:pf}
+
+The analysis of Section~\ref{sec:timescales} predicts arrest and a power-law
+dependence of the frozen domain size on cooling rate, but says nothing about the
+morphology that results. This section supplies it, subject throughout to the
+division of labour set out in Section~\ref{sec:kappacaveat}: the phase-field
+calculation gives the pathway and the topology, not the absolute scale.
+
+\subsection{Implementation}
+
+Equation~\eqref{eq:ch} is integrated on a periodic square grid by a
+semi-implicit spectral scheme. The fourth-order linear term is diagonal in
+Fourier space and is treated implicitly, the nonlinear bulk term explicitly:
+\begin{equation}
+\hat{c}^{\,n+1} = \frac{\hat{c}^{\,n} - \Delta t\, M k^2\,
+                        \mathcal{F}\!\left[f'(c^n)\right]}
+                       {1 + \Delta t\, M \kappa k^4}.
+\label{eq:scheme}
+\end{equation}
+An explicit scheme would require $\Delta t < C\,\Delta x^4/(M\kappa)$, which at
+the resolutions needed here is unusable.
+
+Two implementation choices require comment because both were arrived at by
+first getting them wrong.
+
+\paragraph{The gradient coefficient is set from the resolvable wavelength.}
+Linear stability of Eq.~\eqref{eq:ch} gives a fastest-growing wavelength
+$\lambda = 2\pi\sqrt{2\kappa/|f''|}$. At the physical $\kappa$ this is of order
+the lattice parameter and no grid resolves it: with $\kappa$ from
+Eq.~\eqref{eq:gammakappa} the fastest-growing mode spans one cell, the interface
+is unresolved, and the calculation describes numerical diffusion rather than
+decomposition. We therefore set $\kappa = |f''|\lambda_{\rm target}^2/8\pi^2$
+with $\lambda_{\rm target} = 12$ cells. This is the widening announced in
+Section~\ref{sec:kappacaveat}, here made quantitative.
+
+\paragraph{The timestep is set from the target amplification, not from a CFL
+condition.} Linearising Eq.~\eqref{eq:scheme}, a mode $k$ is amplified per step
+by $A(k) = (1 - \Delta t M k^2 f'')/(1 + \Delta t M \kappa k^4)$, so growth
+requires $-f'' > \kappa k^2$, which is the stability condition and does not
+involve $\Delta t$. What $\Delta t$ controls is the amount of growth per step.
+Setting it from an explicit-scheme CFL condition gives $A - 1 \sim 3\times
+10^{-4}$, so the unstable mode needs some 7000 steps to grow tenfold while the
+run has only a few thousand at that mobility; the result looks like diffusive
+smoothing, because that is what it is. We instead solve for the $\Delta t$ that
+delivers a chosen amplification, $A = 1.02$, of the fastest-growing mode. Taking
+a large $\Delta t$ is precisely what the implicit treatment of the stiff term
+exists to permit.
+
+\subsection{The morphological sequence}
+
+Figure~\ref{fig:sequence} follows a cooling run from 1800 to 500~K. The
+composition starts uniform at $c_0 = 0.30$ with fluctuations of amplitude
+$2\times10^{-3}$, which places it inside the unstable region of
+Section~\ref{sec:spinodal}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{fig_sequence_32000.pdf}
+\caption{Morphological evolution of a slowly cooled grain. Left to right:
+initial fluctuations; spinodal decomposition, which raises the composition
+contrast from $2\times10^{-3}$ to 0.308 and establishes two phases; and
+progressive coarsening, in which the domain count falls and the surviving
+domains grow. Panels are individually scaled, since a common scale set by the
+seeding noise would compress every later panel. Lengths are in grid units, not
+physical units: see Section~\ref{sec:kappacaveat}.}
+\label{fig:sequence}
+\end{figure}
+
+The sequence has four stages, and they are the stages the introduction promised.
+The field is initially homogeneous to within the seeding noise. Decomposition
+then occurs spinodally: the composition contrast rises by more than two orders
+of magnitude within the first temperature interval, and a two-phase structure
+appears with a wavelength close to the linear-stability prediction. Coarsening
+follows, the domain count falling from many to few as material transfers from
+smaller domains to larger. Finally the microstructure ceases to evolve: the
+last panels differ from one another far less than the early ones, not because
+coarsening has completed --- a single domain would be the completed state ---
+but because the mobility has fallen too far for it to continue.
+
+\subsection{Cooling rate and the frozen microstructure}
+
+Figure~\ref{fig:rates} compares three cooling schedules. Since $\Delta t$ tracks
+the mobility, specifying the schedule as a number of steps per kelvin fixes the
+diffusive progress per kelvin, which is the dimensionless ratio
+Section~\ref{sec:timescales} identifies as controlling. A larger step count is
+slower cooling.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{fig_cooling_rates.pdf}
+\caption{Frozen microstructures and coarsening histories at three cooling
+rates. Upper row: the final state, with the domain count. Lower panel: domain
+scale against temperature, decreasing to the right. Every curve flattens as the
+mobility collapses --- that flattening is arrest --- and the slower the cooling,
+the further coarsening runs before it happens.}
+\label{fig:rates}
+\end{figure}
+
+\begin{table}[htbp]
+\centering
+\caption{Frozen microstructure against cooling rate, $256\times256$ grid,
+$\lambda_{\rm target} = 12$ cells. Domain scale is from the first moment of the
+structure factor, in grid units.}
+\label{tab:rates}
+\small
+\begin{tabular}{rlrr}
+\toprule
+cooling steps & rate & domain scale $L$ & domains \\
+\midrule
+ 2{,}000 & fast   & 18.2 & 160 \\
+ 8{,}000 & medium & 26.5 &  76 \\
+32{,}000 & slow   & 37.3 &  33 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The frozen domain scale follows $L \propto (\text{steps})^{0.259}$, that is
+$L \propto |\dot{T}|^{-0.259}$, against the $1/3$ of Eq.~\eqref{eq:scaling}
+softened by the drift in $\Tf$ that Eq.~\eqref{eq:tfsens} describes. Analysis
+and simulation therefore agree on the exponent to within the accuracy either
+supports.
+
+\subsection{A caution on what agreement demonstrates}
+
+The exponent proved insensitive to errors it should have been sensitive to, and
+the episode is worth recording because it bears on how such agreement should be
+read. Two earlier versions of this calculation returned $0.242$ and $0.256$ for
+the same quantity. In the first the interface was unresolved; in the second the
+free energy was internally inconsistent, the analytic derivative $f'(c)$
+disagreeing with $f''(c)$ by a factor of 150 at the working composition because
+a term had been dropped from the differentiation. In neither case did
+decomposition actually occur --- the composition contrast decayed rather than
+grew --- yet both produced plausible pictures of a coarsening pattern and an
+exponent within 7\% of the correct one.
+
+The reason is that the exponent reflects the transport-limited kinetics of
+whatever structure is present, and pattern coarsening under pure diffusion obeys
+a similar law to domain coarsening under phase separation. Agreement in the
+exponent was therefore not evidence that the mechanism was right. What exposed
+the error was tracking the composition contrast, which must grow by orders of
+magnitude if decomposition is occurring and did not. We now assert internal
+consistency of $f$, $f'$ and $f''$ against finite differences whenever the free
+energy is constructed, and report the contrast alongside the domain scale in
+every figure.
+
+\section{Direct coarsening in the lattice model}
+\label{sec:latticecoarsen}
+
+The phase-field calculation cannot supply an absolute length, for the reason set
+out in Section~\ref{sec:kappacaveat}. This section supplies one, by coarsening
+the lattice model directly. Here the interface is what it physically is, one
+bond wide, and nothing is inflated; what the calculation gives up in reach it
+gains in meaning, since sizes come out in atoms and hence in nanometres.
+
+\subsection{Protocol, and two design errors that had to be corrected}
+
+A dispersed solute distribution is held at fixed temperature and the domain
+population followed. Both corrections below were forced by the data and are
+recorded because either would silently corrupt the exponent.
+
+\paragraph{The measurement must exclude monomers.} At 1800~K some 90\% of
+clusters are single solutes evaporated from the domains. Including them in a
+mean radius makes that quantity a measure of the free-solute concentration
+rather than of the domains: it \emph{falls} while the domains grow, because a
+growing domain sheds more monomers. A first version did include them and
+returned exponents of 0.007, 0.024 and 0.165 at 1800, 1600 and 1400~K --- not a
+coarsening exponent but an artefact of the mixing. We now average over clusters
+of at least four sites and report the monomer fraction separately, so that
+evaporation is visible rather than hidden.
+
+\paragraph{The measurement must end before the solute budget does.} At
+$x = 1$~at.\% in an $L = 30$ box the 1080 solutes condensed into a single domain
+within 3000 of 60{,}000 sweeps, so more than nine tenths of the run measured a
+structure that had stopped evolving, dragging the fitted exponent towards zero.
+That the equilibrium state is a single domain is the central result of
+\citet{yu2026b}; it follows that a coarsening measurement must be made before
+exhaustion, and therefore that enough solute must be supplied for exhaustion to
+take a long time. At $x = 4$~at.\% the coarsening window extends over the whole
+run.
+
+The composition is thus far above natural indium tenors. It is chosen to make
+the exponent measurable, and the exponent is a property of the transport-limited
+kinetics rather than of the concentration; the absolute sizes reported are those
+of the simulated domains, not a prediction of natural inclusion sizes.
+
+\subsection{Results}
+
+In an $L = 24$ box (55{,}296 cation sites, a cube 13.0~nm on a side) at 1600~K,
+the domain count falls from 173 to 4 over 20{,}000 sweeps while the mean domain
+radius grows from 0.44 to 1.66~nm. These are absolute figures: the simulated
+domains are nanometric, in a box whose edge is 13~nm, with no adjustable length
+scale anywhere in the calculation.
+
+The fitted exponent is $n = 0.150 \pm 0.002$, and it is stable across the run:
+taking successive decades of sweeps separately gives 0.176, 0.137, 0.156 and
+0.122. It is not an artefact of the fitting window.
+
+\subsection{Why the exponent is below one third}
+
+The Lifshitz--Slyozov--Wagner value is $1/3$ and the measurement is half that,
+so the difference requires an explanation rather than a footnote.
+
+The obvious suspicion is that solute continues to arrive from the dispersed
+population, so that new small domains are counted while the large ones grow,
+depressing the mean. That can be tested: if the counted domains hold a
+conserved amount of solute, then $N R^3$ is constant and the exponent obtained
+from the domain count must agree with the one from the radius. It does. The
+product $N R^3$ varies between 13 and 19 with no systematic drift, the count
+gives $N \sim t^{-0.400}$ and hence $R \sim t^{+0.133}$, and the radius gives
+$R \sim t^{+0.148}$. Mass is conserved among the domains and the two routes
+agree, so continuing nucleation is not the explanation.
+
+Three possibilities remain, and we cannot presently distinguish them.
+
+The domains may be too small for the asymptotic law. Lifshitz--Slyozov assumes
+domains large compared with the interface width and dilute enough that they do
+not interact; here the domains are a few nanometres across with interfaces one
+bond wide, and at $x = 4$~at.\% they are not dilute. Pre-asymptotic exponents
+below $1/3$ are commonly reported in such regimes.
+
+The transport may not be purely diffusive. The Monte Carlo dynamics conserves
+composition but has no vacancy mechanism: material moves by direct exchange,
+which is not the mechanism operating in a real crystal and need not give the
+same exponent.
+
+The run may not have reached the asymptotic regime. Twenty thousand sweeps
+covers less than three decades in time, and the domain count falls to four, so
+the late window is statistically thin.
+
+What the measurement establishes firmly is the \emph{scale}: coarsening in this
+model produces domains of one to two nanometres over the accessible window, in
+a box of 13~nm, with the interface unmodified. That is the absolute figure the
+phase-field calculation could not provide, and it is the figure that
+Section~\ref{sec:geospeedometer} compares with observation. The exponent from
+this route should be treated as a lower bound on the asymptotic value rather
+than as a determination of it.
+
+\section{Cross-check between the two methods}
+\label{sec:crosscheck}
+
+Sections~\ref{sec:pf} and \ref{sec:latticecoarsen} describe the same physical
+process with representations that could hardly be more different. The
+phase-field calculation carries a continuous order parameter on a grid whose
+interface has been deliberately widened to span a dozen cells; the lattice
+calculation carries discrete species on the cation sublattice with an interface
+one bond wide. Their only shared input is the free energy, and even that enters
+differently: as a smooth double well in one, as an explicit sum over
+configurations in the other.
+
+The coarsening exponent is the quantity both can compute, and it is therefore
+the natural cross-check. If the two agree, the exponent is a property of the
+transport-limited kinetics rather than of either representation --- which is the
+premise on which Section~\ref{sec:geospeedometer} rests, since the inversion
+uses the exponent and nothing else.
+
+We compare three determinations:
+\begin{itemize}\itemsep2pt
+\item the Lifshitz--Slyozov--Wagner result for diffusion-limited coarsening,
+      $n = 1/3$, softened by the drift in $\Tf$ of Eq.~\eqref{eq:tfsens} to
+      somewhat below that value;
+\item the phase-field cooling runs, which give $n = 0.259$;
+\item direct lattice coarsening, which gives $n = 0.150 \pm 0.002$
+      (Section~\ref{sec:latticecoarsen}).
+\end{itemize}
+
+The three do not agree. Theory gives $1/3$, the phase-field runs $0.259$, and
+the lattice $0.150$; the natural end members of Section~\ref{sec:geospeedometer}
+imply something near $0.45$. The spread is a factor of three, and it would be
+dishonest to present the two simulation values as mutual corroboration when they
+differ by 70\%.
+
+What the comparison does establish is a hierarchy of confidence. Both
+simulations reproduce the qualitative law --- domains grow as a power of time,
+and the frozen size falls with cooling rate --- and both do so with
+representations that share almost nothing. The exponent itself is evidently
+sensitive to things the two treat differently: the phase-field interface is
+twelve cells wide and the lattice interface one bond, the phase-field dynamics
+is continuum diffusion and the lattice dynamics direct exchange, and the lattice
+domains are small enough that the asymptotic law need not hold. Each of those
+would be expected to move the exponent, and Section~\ref{sec:latticecoarsen}
+argues that the lattice value should be read as a lower bound.
+
+The inversion of Section~\ref{sec:geospeedometer} is therefore presented as an
+ordering rather than a calibration. Ranking deposits by cooling rate requires
+only that the exponent be positive and roughly constant, which all four
+determinations support. Returning a rate in kelvin per year would require
+knowing it to better than a factor of two, which none of them presently does.
+
+Two cautions bear on how such agreement should be weighed, and both were learned
+the hard way.
+
+The first is the episode of Section~\ref{sec:pf}: two versions of the
+phase-field calculation in which decomposition did not occur at all returned
+exponents of $0.242$ and $0.256$, within 7\% of the correct value. Coarsening of
+a diffusive pattern obeys a similar law to coarsening of a phase-separated
+microstructure, so the exponent alone does not identify the mechanism. We
+therefore report the composition contrast alongside every exponent: in the
+lattice model the analogous check is the fraction of solute in monomers, which
+must fall towards zero if domains are genuinely forming.
+
+The second concerns temperature. Coarsening at 573~K is unobservable in the
+lattice model, since the acceptance ratio there is of order $10^{-5}$. The
+lattice runs are therefore conducted at 1400 to 1800~K, on the assumption that
+the exponent is a property of the kinetics rather than of the temperature. That
+assumption is testable within the calculation, by measuring $n$ at several
+temperatures and asking whether it moves, and we report the spread rather than a
+single value.
+
+%==============================================================================
+\section{Inversion: nanoinclusions as a geospeedometer}
+\label{sec:geospeedometer}
+
+Equation~\eqref{eq:scaling} states that the frozen inclusion size depends on the
+cooling rate through a power law. Read forwards it predicts a microstructure
+from a thermal history. Read backwards it does the opposite, and that is the
+more useful direction, because inclusion sizes are measurable in a thin section
+whereas cooling rates are not.
+
+\subsection{The relation to be inverted}
+
+Inverting Eq.~\eqref{eq:scaling},
+\begin{equation}
+\lvert \dot{T} \rvert \;=\; \lvert \dot{T} \rvert_{\rm ref}
+      \left( \frac{R_{\rm f}}{R_{\rm ref}} \right)^{-1/n},
+\label{eq:invert}
+\end{equation}
+so a single calibration point $(R_{\rm ref}, |\dot{T}|_{\rm ref})$ plus the
+exponent converts an observed size into a rate. Because $n \approx 1/3$, the
+inversion carries a factor of three amplification: a size measured to within a
+factor of two yields a rate to within a factor of eight. That is coarse, but
+cooling rates in ore systems span ten orders of magnitude, so a factor of eight
+still discriminates strongly between the deposit classes considered below.
+
+\subsection{Natural end members}
+
+Indium-bearing sphalerite occurs in deposit types whose cooling rates differ by
+some eight orders of magnitude, and the inclusion textures reported from them
+differ correspondingly. Table~\ref{tab:endmembers} sets the two against each
+other.
+
+\begin{table}[htbp]
+\centering
+\caption{Cooling-rate end members for In-bearing sphalerite and the inclusion
+textures reported from them. Rates are order-of-magnitude estimates for the
+deposit class, not measurements on the specific samples in which the textures
+were observed; the comparison is between populations, not between paired
+observations.}
+\label{tab:endmembers}
+\small
+\begin{tabular}{llll}
+\toprule
+deposit class & cooling rate (K\,yr$^{-1}$) & inclusion texture & scale \\
+\midrule
+VMS, seafloor massive sulphide & $10^{0}$--$10^{2}$ &
+  lattice distortion, ultrafine domains & 5--50\,nm \\
+magmatic-hydrothermal, skarn & $10^{-3}$--$10^{-1}$ &
+  sub-micron exsolution & 0.1--1\,\textmu m \\
+MVT, basinal brine & $10^{-6}$--$10^{-4}$ &
+  optically visible roquesite & 1--50\,\textmu m \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The qualitative ordering is exactly as Eq.~\eqref{eq:scaling} requires: the
+faster the system cooled, the finer the inclusions it carries. The
+quenched seafloor systems, in which hydrothermal fluid meets cold seawater, are
+where indium most often presents as an apparent solid solution in LA-ICP-MS
+depth profiles --- smooth ablation signals with no discrete spikes --- and where
+transmission electron microscopy nonetheless resolves nanoscale heterogeneity
+\citep{cook2009,frenzel2016}. At the other extreme, roquesite is reported as
+discrete micrometric grains exsolved from sphalerite \citep{moura2007}.
+
+\subsection{A quantitative discrepancy, and what it may mean}
+
+The ordering agrees. The magnitude does not, and we report the disagreement
+rather than the agreement, because it is the more informative of the two.
+
+Across the full range of Table~\ref{tab:endmembers}, cooling rate spans eight
+decades and inclusion size spans four, which implies
+\begin{equation}
+n_{\rm obs} \;=\; \frac{\Delta \log_{10} R}{\Delta \log_{10} |\dot{T}|}
+           \;\approx\; 0.50 .
+\label{eq:nobs}
+\end{equation}
+Taking the classes pairwise rather than end to end gives $0.43$ and $0.45$,
+consistent with each other and with Eq.~\eqref{eq:nobs}. The theoretical and
+simulated values are $1/3$ and $0.259$. The natural data therefore imply an
+exponent larger by roughly a factor of $1.7$, and the two pairwise estimates
+agree closely enough that this is unlikely to be scatter.
+
+Several readings are possible and we cannot presently choose between them.
+
+\emph{The calibration may be miscast.} Table~\ref{tab:endmembers} pairs
+deposit-class cooling rates with textures reported from different samples, not
+from the same ones. If the fastest-cooled samples in which nanodomains are
+resolved are not the fastest-cooling members of their class, or if optically
+visible roquesite is preferentially reported from the slowest members of theirs,
+the apparent range of both axes is inflated in a correlated way. Paired
+measurements on single samples would settle this and do not appear to exist.
+
+\emph{The coarsening mechanism may differ at the extremes.} The
+Lifshitz--Slyozov exponent of $1/3$ assumes coarsening limited by bulk
+diffusion. If transport along dislocations or grain boundaries contributes in
+the slowly cooled systems, the effective exponent rises; interface-limited
+coarsening gives $1/2$ exactly, which is close to what the natural data imply.
+The discrepancy may therefore be a signature that the slow end members coarsen
+by a different mechanism from the one modelled here.
+
+\emph{The arrest temperature may drift more than assumed.}
+Equation~\eqref{eq:tfsens} treats $E_a$ as constant. If the activation energy
+itself falls as domains grow --- plausible, since a solute leaving a large domain
+breaks fewer bonds per unit of interface removed --- then $\Tf$ drifts further
+than estimated and the effective exponent changes.
+
+We regard the third as least likely, because it would move the exponent in the
+wrong direction, and the first two as both plausible. What the comparison
+establishes is that the model predicts the correct ordering across eight decades
+of cooling rate, and predicts a magnitude that is too small by a factor of about
+$1.7$; and that the resolution lies either in better-paired observations or in
+coarsening mechanisms this work does not include.
+
+\subsection{What the tool can and cannot do}
+
+Stated plainly, so that it is not overread.
+
+It \emph{can} rank deposits by cooling rate from inclusion textures, which is
+what the agreement in ordering supports. A sphalerite carrying optically visible
+roquesite cooled far more slowly than one whose indium is invisible to
+LA-ICP-MS, and the difference is many orders of magnitude rather than a factor
+of a few.
+
+It \emph{cannot} yet return a cooling rate in kelvin per year from a measured
+inclusion size, for two reasons. The absolute calibration requires a diffusion
+coefficient this work does not have (Section~\ref{sec:mobility}), and the
+exponent disagrees with the natural data by a factor whose origin is unresolved.
+Until both are settled, the inversion should be read as a relative one.
+
+\subsection{The rate-limiting step}
+
+One mineralogical observation supports the framework and deserves recording,
+because it bears on the activation energy that controls arrest. Copper diffuses
+anomalously rapidly in sphalerite, plausibly by an interstitial mechanism; this
+is the basis of the classic account of chalcopyrite disease
+\citep{barton1987}. Indium is a different case: In$^{3+}$ is large, highly
+charged, and cannot move without either a vacancy or a compensating counter-ion
+moving with it, so its diffusivity must be far below that of copper and below
+zinc self-diffusion as well.
+
+The consequence for this paper is direct. Coarsening of a Cu--In domain requires
+both species to move, so it proceeds at the rate of the slower, and the arrest
+condition of Eq.~\eqref{eq:arrest} should be evaluated with the activation
+energy for indium rather than an average. Arrest therefore occurs at a higher
+temperature than a copper-based estimate would suggest, and the microstructure
+freezes earlier. The nanoscale inclusions that natural sphalerite carries are,
+on this reading, a record of indium having stopped moving while the rock was
+still hot.
+
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{A change in what a texture means}
+
+Trace-element textures in sphalerite are conventionally read as a record of
+\emph{composition}: what the fluid supplied, and what the crystal could
+accommodate. The argument of this paper makes them a record of something else
+as well. If inclusions are frozen coarsening products, their size is set not by
+how much indium was available but by how long the system had to reorganise it
+before transport stopped. Two grains with identical indium contents, grown from
+identical fluids, will carry different textures if they cooled differently.
+
+That reframing has a corollary worth stating explicitly, because it inverts an
+assumption. A smooth LA-ICP-MS depth profile has often been taken as evidence
+for solid solution. On the present account it is evidence for \emph{fast
+cooling}: the indium is aggregated, as \citet{yu2026b} requires, but into
+domains too fine for the ablation volume to resolve. The absence of spikes
+constrains the thermal history, not the state.
+
+\subsection{Ranking deposits by thermal history}
+
+Section~\ref{sec:geospeedometer} establishes that the model reproduces the
+ordering of inclusion size across deposit classes spanning eight orders of
+magnitude in cooling rate, while disagreeing on the magnitude by a factor of
+about $1.7$. The ordering is the part that is usable now.
+
+Its practical form is comparative rather than absolute. Given two sphalerite
+samples, the one with coarser indium-bearing inclusions cooled more slowly, and
+by a margin that the power law converts into orders of magnitude rather than
+factors. Within a single deposit, systematic variation of inclusion size across
+a district would map relative cooling rates, and therefore proximity to the heat
+source, in a way that bulk indium tenor cannot: tenor reflects supply, texture
+reflects time.
+
+We are careful not to overstate what follows. Turning this into a
+geothermometer proper --- returning a cooling rate in kelvin per year --- would
+require an absolute diffusion coefficient, which Section~\ref{sec:mobility}
+explains this work does not have, and an exponent known to better than a factor
+of two, which Section~\ref{sec:crosscheck} shows none of the four
+determinations presently provides. Both are obtainable; neither is obtained
+here.
+
+\subsection{Consequences for metallurgical recovery}
+
+Indium is recovered almost entirely as a by-product of zinc refining, so its
+recovery efficiency depends on how it is bound in the sphalerite fed to the
+smelter. The state of that binding is precisely what this work argues is set by
+thermal history.
+
+The two limiting cases behave differently. Indium dispersed as nanometric
+domains within the sphalerite lattice, the expected product of rapid cooling,
+will follow zinc through dissolution and report to the same process streams;
+its recovery is a question of hydrometallurgical circuit design. Indium
+concentrated in discrete micrometric roquesite, the product of slow cooling,
+is a separate mineral phase with its own dissolution behaviour, and may be
+recoverable --- or lost --- by physical separation before leaching.
+
+The practical suggestion is therefore that deposit classes be expected to
+differ systematically in indium deportment, and along an axis that is
+predictable in advance from cooling history rather than discoverable only by
+metallurgical testing. Quenched seafloor systems should present indium in the
+lattice-bound form; slowly cooled basinal systems should present a greater
+fraction as discrete inclusions. We advance this as a prediction the framework
+makes, not as a result it establishes, since we have tested it against
+published textures rather than against recovery data.
+
+\subsection{The generality of the argument}
+
+Little in Sections~\ref{sec:timescales} and \ref{sec:geospeedometer} is specific
+to indium. The ingredients are a solute whose equilibrium state is condensed, a
+transport process that is thermally activated, and a host that cools. Any
+trace element meeting those conditions should freeze in a coarsening
+microstructure whose scale records the cooling rate, with the same power law and
+a different prefactor.
+
+What \emph{is} specific to indium is the reason its equilibrium state is
+condensed, which is the charge-compensation physics of \citet{yu2026}: the
+coupled substitution of Cu$^+$ and In$^{3+}$ for two Zn$^{2+}$ carries a pair
+binding energy fixed by the dielectric constant and an order of magnitude above
+$k_BT$. Elements substituting isovalently have no such driving force. The
+framework should therefore transfer to other heterovalent couples --- Ag--Sb,
+Cu--Ga --- and not to isovalent substituents such as Fe or Cd, whose
+distribution is governed by different physics.
+
+\subsection{On the disagreement between methods}
+
+Section~\ref{sec:crosscheck} reports that four determinations of the coarsening
+exponent span a factor of three, and it would be convenient to attribute the
+spread to numerical detail. We think the more likely reading is that the
+exponent is genuinely different in the different regimes, and that this is
+informative rather than merely inconvenient.
+
+The lattice value of $0.150$ comes from domains a few nanometres across with
+atomically sharp interfaces, well outside the regime in which the
+Lifshitz--Slyozov derivation holds. The natural end members imply something near
+$0.45$, which is close to the $1/2$ of interface-limited rather than
+diffusion-limited coarsening --- and interface limitation is plausible for
+domains whose interface is one bond wide. The phase-field value of $0.259$ falls
+between, from a calculation whose interface is deliberately widened towards the
+continuum limit.
+
+Read that way, the spread is a crossover: from interface-limited coarsening at
+the atomic scale towards diffusion-limited coarsening as domains grow. If so, no
+single exponent describes the whole range, and the inversion of
+Section~\ref{sec:geospeedometer} should use the value appropriate to the size
+range observed. We flag this as the most promising line for further work, and
+note that it is testable by measuring the exponent as a function of domain size
+within a single simulation.
+
+\section{Limitations}
+\label{sec:limitations}
+
+We set these out in the order in which they bear on the conclusions, and
+distinguish throughout between limitations that affect the numbers and
+limitations that would affect the argument.
+
+\paragraph{The phase-field interface is artificially widened.} This is stated
+in Section~\ref{sec:kappacaveat} before any phase-field result is presented, and
+it is absolute: the domain sizes in Figures~\ref{fig:sequence} and
+\ref{fig:rates} are set by the grid spacing, not predicted. Inflating $\kappa$
+rescales lengths and times together, so the dimensionless conclusions --- the
+order of morphologies, the existence of arrest, the sign and approximate
+magnitude of the size--rate exponent --- survive; the absolute scale does not,
+and comes instead from Section~\ref{sec:latticecoarsen}.
+
+\paragraph{The lattice dynamics has no vacancy mechanism.} Solute moves by
+direct exchange, which conserves composition and satisfies detailed balance but
+is not how atoms move in a real crystal. Indium in particular is expected to
+migrate only with a vacancy or a compensating counter-ion, as
+Section~\ref{sec:geospeedometer} discusses, and a mechanism with a different
+correlation factor need not give the same coarsening exponent. This is a
+plausible contributor to the $0.150$ measured in Section~\ref{sec:latticecoarsen}
+and is the reason that value is offered as a lower bound rather than a
+determination.
+
+\paragraph{The simulated compositions are far above natural tenors.} The lattice
+coarsening runs use 4~at.\% total solute, some two to three orders of magnitude
+above the indium content of economically relevant sphalerite, because at natural
+dilution the solute budget is exhausted into a single domain before any
+coarsening can be measured --- which is itself the result of \citet{yu2026b}.
+The exponent is a property of the transport-limited kinetics rather than of the
+concentration, but the domains at 4~at.\% are not dilute, and interactions
+between them are a further reason the asymptotic law need not hold.
+
+\paragraph{Monte Carlo sweeps are not physical time, and the mobility is not
+absolute.} Section~\ref{sec:mobility} sets out the consequence: results are
+relative calibrations. A ratio of domain sizes maps onto a ratio of cooling
+rates; neither maps onto an absolute value without a measured diffusion
+coefficient for Cu or In in sphalerite.
+
+\paragraph{The coarsening exponent is not settled.} Four determinations span a
+factor of three (Section~\ref{sec:crosscheck}). Section~\ref{sec:discussion}
+suggests they may describe different regimes rather than disagreeing about one,
+but that suggestion is untested. Until it is, the inversion supports ranking
+and not calibration.
+
+\paragraph{The end-member comparison is not paired.} Table~\ref{tab:endmembers}
+sets deposit-class cooling rates against inclusion textures reported from
+different samples. Paired measurements --- inclusion size distributions and
+independent thermal-history constraints on the same specimens --- would test the
+power law properly and do not appear to exist. This is the single most useful
+observation the framework calls for.
+
+\paragraph{Iron is absent, and the chemical term is assumed.} Both are inherited
+from \citet{yu2026} and discussed there. Fe$^{2+}$ is isovalent with
+Zn$^{2+}$ and so does not enter the charge-compensation term, but modifies the
+dielectric response that fixes $\lambda$; the chemical term $J_{\alpha\beta}$
+remains unconstrained by first-principles calculation, and enters $\gamma$
+explicitly through Eq.~\eqref{eq:gamma}.
+
+\paragraph{What none of these affects.} The existence of kinetic arrest does not
+depend on any of the above. It follows from two facts that are not in question:
+that solute transport is thermally activated, so the coarsening time grows
+exponentially as temperature falls; and that cooling proceeds at a rate which
+does not. Two such functions cross, and they cross once. Every quantity that
+might be wrong --- the diffusion prefactor, the activation energy, the
+interfacial energy, the domain size --- enters the arrest condition of
+Eq.~\eqref{eq:arrest} inside a logarithm, and Eq.~\eqref{eq:tfsens} shows that
+an order of magnitude error in any of them shifts the arrest temperature by less
+than a quarter.
+
+What is uncertain is therefore the calibration, not the mechanism. The
+inclusions in natural sphalerite are frozen coarsening products; how precisely
+their size dates the freezing is what remains to be settled.
+
+%==============================================================================
+\section*{Data and code availability}
+\label{sec:availability}
+Source code, numerical results and figures for this study are openly available
+at \url{https://github.com/Ruqing1963/sphalerite-kinetic-arrest}. Code is
+released under the MIT licence and data under CC~BY~4.0; the manuscript remains
+the copyright of the authors. The repository includes the Cahn--Hilliard solver
+with Arrhenius mobility used in Section~\ref{sec:pf}, the direct lattice
+coarsening of Section~\ref{sec:latticecoarsen}, the thermodynamic integration
+that measures $f(c)$ in Section~\ref{sec:fofc}, and the scripts that regenerate
+each figure.
+
+Two components are released although they were not run for this work. The
+structure generation and least-squares harness for the first-principles
+determination of $J_{\alpha\beta}$ is complete and validated against synthetic
+energies, so it can be run by anyone with sufficient memory and the parameters
+dropped into Eq.~\eqref{eq:gamma} without repeating any simulation reported
+here. And the verification suite of \citet{yu2026} is included unchanged, since
+every result in this paper depends on the lattice module passing it.
+
+The two preceding papers of the series are archived separately, with their own
+code: \citet{yu2026} at \url{https://doi.org/10.5281/zenodo.21880502} and
+\citet{yu2026b} at \url{https://doi.org/10.5281/zenodo.21911898}.
+
+\section*{Funding}
+This study was funded by the Hezhou Municipal Scientific Research and
+Development Program (Project Nos.\ 2024143, 2024141 and 2024104).
+
+%==============================================================================
+\begin{thebibliography}{99}
+\itemsep2pt
+
+\bibitem[Barton and Bethke(1987)]{barton1987}
+Barton, P.B., Bethke, P.M., 1987. Chalcopyrite disease in sphalerite: pathology
+and epidemiology. \textit{American Mineralogist} 72, 451--467.
+
+\bibitem[Cahn and Hilliard(1958)]{cahn1958}
+Cahn, J.W., Hilliard, J.E., 1958. Free energy of a nonuniform system. I.
+Interfacial free energy. \textit{Journal of Chemical Physics} 28, 258--267.
+
+\bibitem[Cook et al.(2009)]{cook2009}
+Cook, N.J., Ciobanu, C.L., Pring, A., Skinner, W., Shimizu, M., Danyushevsky,
+L., Saini-Eidukat, B., Melcher, F., 2009. Trace and minor elements in
+sphalerite: a LA-ICPMS study. \textit{Geochimica et Cosmochimica Acta} 73,
+4761--4791.
+
+\bibitem[Frenzel et al.(2016)]{frenzel2016}
+Frenzel, M., Hirsch, T., Gutzmer, J., 2016. Gallium, germanium, indium and
+other trace and minor elements in sphalerite as a function of deposit type ---
+a meta-analysis. \textit{Ore Geology Reviews} 76, 52--78.
+
+\bibitem[Lifshitz and Slyozov(1961)]{lifshitz1961}
+Lifshitz, I.M., Slyozov, V.V., 1961. The kinetics of precipitation from
+supersaturated solid solutions. \textit{Journal of Physics and Chemistry of
+Solids} 19, 35--50.
+
+\bibitem[Moura et al.(2007)]{moura2007}
+Moura, M.A., Botelho, N.F., de Mendon\c{c}a, F.C., 2007. The indium-rich
+sulfides and rare arsenates of the Sn-In-mineralized Mangabeira A-type granite,
+central Brazil. \textit{The Canadian Mineralogist} 45, 485--496.
+
+\bibitem[Yu et al.(2026a)]{yu2026}
+Yu, H., Chen, R., Lu, H., 2026a. A statistical thermodynamic lattice model for
+Cu--In coupled substitution in sphalerite, version 2.0. \textit{Zenodo}.
+\url{https://doi.org/10.5281/zenodo.21880502}
+
+\bibitem[Yu et al.(2026b)]{yu2026b}
+Yu, H., Chen, R., Lu, H., 2026b. The equilibrium fate of indium in sphalerite:
+large-scale replica-exchange simulation and the absence of a dilute solid
+solution. \textit{Zenodo}. \url{https://doi.org/10.5281/zenodo.21911898}
+
+\end{thebibliography}
+
+\end{document}
