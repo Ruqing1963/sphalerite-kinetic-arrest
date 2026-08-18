@@ -1,0 +1,76 @@
+cff-version: 1.2.0
+message: "If you use this software or its results, please cite the following."
+title: "sphalerite-kinetic-arrest: kinetic arrest and the survival of indium nanoinclusions in sphalerite"
+abstract: >-
+  Phase-field and lattice Monte Carlo study of why indium nanoinclusions survive
+  in sphalerite when equilibrium thermodynamics demands a single condensed
+  domain. Includes the closed-form interfacial energy, the bulk free energy by
+  thermodynamic integration, a semi-implicit spectral Cahn-Hilliard solver with
+  Arrhenius mobility and cooling, and direct lattice coarsening giving absolute
+  domain sizes in nanometres.
+type: software
+authors:
+  - family-names: "Yu"
+    given-names: "He"
+    email: "yuhe@hzxy.edu.cn"
+    affiliation: "Geological Laboratory, Hezhou University, Hezhou, Guangxi 542899, China"
+  - family-names: "Chen"
+    given-names: "Ruqing"
+    email: "ruqing@hotmail.com"
+    affiliation: "GUT Geoservice Inc., Montreal, Quebec, Canada"
+  - family-names: "Lu"
+    given-names: "Huanzhang"
+    email: "hzlu@uqac.uquebec.ca"
+    affiliation: "Universite du Quebec a Chicoutimi, Quebec, Canada"
+repository-code: "https://github.com/Ruqing1963/sphalerite-kinetic-arrest"
+license: MIT
+keywords:
+  - sphalerite
+  - indium
+  - kinetic arrest
+  - coarsening
+  - phase field
+  - Cahn-Hilliard
+  - nanoinclusions
+  - cooling rate
+  - ore deposits
+  - critical metals
+version: "1.0.0"
+date-released: "2026-08-15"
+references:
+  - type: article
+    title: "A statistical thermodynamic lattice model for Cu-In coupled substitution in sphalerite"
+    authors:
+      - family-names: "Yu"
+        given-names: "He"
+      - family-names: "Chen"
+        given-names: "Ruqing"
+      - family-names: "Lu"
+        given-names: "Huanzhang"
+    year: 2026
+    doi: "10.5281/zenodo.21880502"
+    notes: "Paper 1: the Hamiltonian used throughout."
+  - type: article
+    title: "The equilibrium fate of indium in sphalerite"
+    authors:
+      - family-names: "Yu"
+        given-names: "He"
+      - family-names: "Chen"
+        given-names: "Ruqing"
+      - family-names: "Lu"
+        given-names: "Huanzhang"
+    year: 2026
+    doi: "10.5281/zenodo.21911898"
+    notes: "Paper 2: the equilibrium result this work explains the absence of."
+preferred-citation:
+  type: article
+  title: "Kinetic Arrest, Not Equilibrium: Why Indium Nanoinclusions Survive in Sphalerite"
+  authors:
+    - family-names: "Yu"
+      given-names: "He"
+    - family-names: "Chen"
+      given-names: "Ruqing"
+    - family-names: "Lu"
+      given-names: "Huanzhang"
+  year: 2026
+  notes: "Preprint. DOI to be minted on release."
