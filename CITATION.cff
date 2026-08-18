@@ -23,6 +23,10 @@ authors:
     email: "hzlu@uqac.uquebec.ca"
     affiliation: "Universite du Quebec a Chicoutimi, Quebec, Canada"
 repository-code: "https://github.com/Ruqing1963/sphalerite-kinetic-arrest"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.21995641"
+    description: "Zenodo record, version 2.0.0"
 license: MIT
 keywords:
   - sphalerite
@@ -35,8 +39,8 @@ keywords:
   - cooling rate
   - ore deposits
   - critical metals
-version: "1.0.0"
-date-released: "2026-08-15"
+version: "2.0.0"
+date-released: "2026-08-20"
 references:
   - type: article
     title: "A statistical thermodynamic lattice model for Cu-In coupled substitution in sphalerite"
@@ -73,4 +77,8 @@ preferred-citation:
     - family-names: "Lu"
       given-names: "Huanzhang"
   year: 2026
-  notes: "Preprint. DOI to be minted on release."
+  doi: "10.5281/zenodo.21995641"
+  url: "https://doi.org/10.5281/zenodo.21995641"
+  publisher:
+    name: "Zenodo"
+  notes: "Preprint. Journal details to follow on acceptance."

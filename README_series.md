@@ -91,7 +91,7 @@ state is condensed.
 
 *Kinetic arrest, not equilibrium: why indium nanoinclusions survive in
 sphalerite.*
-[code](https://github.com/Ruqing1963/sphalerite-kinetic-arrest) · DOI on release
+[code](https://github.com/Ruqing1963/sphalerite-kinetic-arrest) · [10.5281/zenodo.21995641](https://doi.org/10.5281/zenodo.21995641)
 
 Paper 2 says the equilibrium state is a **single** domain, and this paper adds
 the interfacial energy in closed form,
@@ -377,7 +377,8 @@ Cite the paper whose result you use:
 > solution.* Zenodo. https://doi.org/10.5281/zenodo.21911898
 
 > Yu, H., Chen, R., Lu, H. (2026) *Kinetic arrest, not equilibrium: why indium
-> nanoinclusions survive in sphalerite.* [DOI on release]
+> nanoinclusions survive in sphalerite.* Zenodo.
+> https://doi.org/10.5281/zenodo.21995641
 
 Each repository carries a `CITATION.cff` with machine-readable metadata.
 

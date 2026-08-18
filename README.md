@@ -1,5 +1,7 @@
 # sphalerite-kinetic-arrest
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21995641.svg)](https://doi.org/10.5281/zenodo.21995641)
+
 Why indium nanoinclusions survive in sphalerite when equilibrium demands a single
 domain. Coarsening is limited by thermally activated transport, cooling is not,
 and the two timescales cross exactly once.
@@ -19,7 +21,7 @@ Third paper of the *Computable Mineral Deposit Chemistry* series.
 |---|---|---|---|
 | Paper 1 | the Hamiltonian and its analytic ground state | [sphalerite-lattice-mc](https://github.com/Ruqing1963/sphalerite-lattice-mc) | [10.5281/zenodo.21880502](https://doi.org/10.5281/zenodo.21880502) |
 | Paper 2 | equilibrium: indium condenses, at every composition | [sphalerite-equilibrium-mc](https://github.com/Ruqing1963/sphalerite-equilibrium-mc) | [10.5281/zenodo.21911898](https://doi.org/10.5281/zenodo.21911898) |
-| Paper 3 | kinetics: why the equilibrium state is not observed | this repository | DOI on release |
+| Paper 3 | kinetics: why the equilibrium state is not observed | this repository | [10.5281/zenodo.21995641](https://doi.org/10.5281/zenodo.21995641) |
 
 ---
 
@@ -223,8 +225,11 @@ paper/    manuscript in plain and Elsevier formats, plus a Chinese
 ## Citation
 
 > Yu, H., Chen, R., Lu, H. (2026) *Kinetic Arrest, Not Equilibrium: Why Indium
-> Nanoinclusions Survive in Sphalerite.*
-> https://github.com/Ruqing1963/sphalerite-kinetic-arrest
+> Nanoinclusions Survive in Sphalerite.* Zenodo.
+> https://doi.org/10.5281/zenodo.21995641
+
+Zenodo also mints a concept DOI that always resolves to the latest version; it
+is shown on the record page and should be preferred for general citation.
 
 ## Licence
 
